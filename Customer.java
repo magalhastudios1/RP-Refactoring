@@ -17,27 +17,6 @@ public class Customer {
         return _name;
     }
 
-    private double amountFor(Rental aRental) {
-        double amount = 0;
-
-        switch (aRental.getMovie().getPriceCode()) {
-            case Movie.REGULAR:
-                amount += 2;
-                if (aRental.getDaysRented() > 2)
-                    amount += (aRental.getDaysRented() - 2) * 1.5;
-                break;
-            case Movie.NEW_RELEASE:
-                amount += aRental.getDaysRented() * 3;
-                break;
-            case Movie.CHILDRENS:
-                amount += 1.5;
-                if (aRental.getDaysRented() > 3)
-                    amount += (aRental.getDaysRented() - 3) * 1.5;
-                break;
-        }
-
-        return amount;
-    }
 
     public String statement() {
         double totalAmount = 0;
@@ -47,7 +26,7 @@ public class Customer {
         while (rentals.hasMoreElements()) {
             //determine amounts for each line
             Rental each = (Rental) rentals.nextElement();
-            double thisAmount = amountFor(each);
+            double thisAmount = each.getCharge();
 
             // add frequent renter points
             frequentRenterPoints ++;
